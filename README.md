@@ -1,58 +1,334 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Agendamento - Calendário de Atividades
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema web desenvolvido em Laravel para gerenciamento de atividades em formato de calendário mensal, com controle de usuários, login, perfis de acesso e área administrativa de segurança.
 
-## About Laravel
+## 📌 Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Login e logout de usuários
+- Controle de acesso por autenticação
+- Perfil de usuário:
+  - Administrador
+  - Usuário comum
+- Gerenciamento completo de usuários
+  - Criar usuário
+  - Editar usuário
+  - Alterar senha
+  - Ativar/desativar usuário
+  - Excluir usuário
+- Proteção para impedir acesso não autorizado à área de segurança
+- Calendário mensal de atividades
+- Filtro por mês, ano e colaborador
+- Cadastro de atividades
+- Exclusão de atividades
+- Interface simples e responsiva
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Tecnologias utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 8.3
+- Laravel 13
+- Composer
+- SQLite
+- Blade
+- HTML
+- CSS
+- JavaScript
+- WSL / Ubuntu
 
-## Learning Laravel
+## 📂 Estrutura principal do projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── AuthController.php
+│   │   ├── CalendarioAtividadesController.php
+│   │   └── UsuarioController.php
+│   └── Middleware/
+│       ├── AdminMiddleware.php
+│       └── UsuarioAtivoMiddleware.php
+├── Models/
+│   ├── Atividade.php
+│   ├── Colaborador.php
+│   └── User.php
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+database/
+├── migrations/
+├── seeders/
+│   └── DatabaseSeeder.php
+└── database.sqlite
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+resources/
+└── views/
+    ├── auth/
+    │   └── login.blade.php
+    ├── calendario/
+    │   └── index.blade.php
+    ├── layouts/
+    │   └── seguranca.blade.php
+    └── seguranca/
+        └── usuarios/
+            ├── index.blade.php
+            ├── create.blade.php
+            └── edit.blade.php
 
-## Agentic Development
+routes/
+└── web.php
+````
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## ⚙️ Requisitos
+
+Antes de rodar o projeto, tenha instalado:
+
+* PHP 8.3 ou superior
+* Composer
+* SQLite
+* Extensões PHP necessárias:
+
+  * mbstring
+  * xml
+  * dom
+  * curl
+  * zip
+  * sqlite3
+
+No Ubuntu/WSL, você pode instalar com:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+sudo apt update
+sudo apt install php8.3-cli php8.3-mbstring php8.3-xml php8.3-curl php8.3-zip php8.3-sqlite3 unzip curl git -y
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+## 🚀 Como instalar o projeto
 
-## Contributing
+Clone o repositório:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+git clone https://github.com/seu-usuario/seu-repositorio.git
+```
 
-## Code of Conduct
+Entre na pasta do projeto:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+cd sistema_agendamento
+```
 
-## Security Vulnerabilities
+Instale as dependências:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+composer install
+```
 
-## License
+Copie o arquivo de ambiente:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+cp .env.example .env
+```
+
+Gere a chave da aplicação:
+
+```bash
+php artisan key:generate
+```
+
+Crie o banco SQLite:
+
+```bash
+touch database/database.sqlite
+```
+
+No arquivo `.env`, confira se está assim:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/caminho/completo/para/seu/projeto/database/database.sqlite
+```
+
+Exemplo no WSL:
+
+```env
+DB_CONNECTION=sqlite
+DB_DATABASE=/home/paulo_paiva/sistema_agendamento/database/database.sqlite
+```
+
+Rode as migrations e os seeders:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Limpe o cache:
+
+```bash
+php artisan optimize:clear
+```
+
+Inicie o servidor:
+
+```bash
+php artisan serve --port=8001
+```
+
+Acesse no navegador:
+
+```text
+http://127.0.0.1:8001
+```
+
+## 🔐 Usuário administrador inicial
+
+O sistema cria automaticamente um usuário administrador inicial pelo Seeder:
+
+```text
+E-mail: admin@sistema.com
+Senha: 12345678
+```
+
+Após o primeiro acesso, é recomendado alterar a senha na área de segurança.
+
+## 🧭 Rotas principais
+
+| Rota                       | Descrição                 |
+| -------------------------- | ------------------------- |
+| `/login`                   | Tela de login             |
+| `/`                        | Calendário de atividades  |
+| `/seguranca/usuarios`      | Gerenciamento de usuários |
+| `/seguranca/usuarios/novo` | Cadastro de novo usuário  |
+
+## 👤 Perfis de acesso
+
+### Administrador
+
+Pode acessar:
+
+* Calendário
+* Cadastro de atividades
+* Área de segurança
+* Gerenciamento de usuários
+* Ativar/desativar usuários
+* Alterar senhas
+* Excluir usuários
+
+### Usuário comum
+
+Pode acessar:
+
+* Calendário
+* Cadastro e visualização de atividades
+
+Não pode acessar a área de segurança.
+
+## 📅 Calendário de atividades
+
+A tela principal permite:
+
+* Visualizar atividades por mês e ano
+* Filtrar por colaborador
+* Cadastrar nova atividade
+* Selecionar data clicando no dia do calendário
+* Excluir atividades cadastradas
+
+## 🧪 Comandos úteis
+
+Rodar servidor:
+
+```bash
+php artisan serve --port=8001
+```
+
+Limpar cache:
+
+```bash
+php artisan optimize:clear
+```
+
+Rodar migrations:
+
+```bash
+php artisan migrate
+```
+
+Recriar banco e popular dados iniciais:
+
+```bash
+php artisan migrate:fresh --seed
+```
+
+Atualizar autoload do Composer:
+
+```bash
+composer dump-autoload
+```
+
+## 🧱 Models principais
+
+### User
+
+Responsável pelos usuários do sistema.
+
+Campos principais:
+
+* name
+* email
+* password
+* perfil
+* ativo
+
+### Colaborador
+
+Responsável pelos colaboradores que podem receber atividades.
+
+Campos principais:
+
+* nome
+
+### Atividade
+
+Responsável pelas atividades cadastradas no calendário.
+
+Campos principais:
+
+* colaborador_id
+* data
+* titulo
+* descricao
+
+## 🔒 Segurança implementada
+
+O projeto possui:
+
+* Senhas criptografadas com hash
+* Proteção de rotas com middleware `auth`
+* Middleware para verificar se o usuário está ativo
+* Middleware para restringir área administrativa
+* Logout com invalidação de sessão
+* Proteção contra exclusão ou desativação do próprio usuário
+* Proteção contra exclusão/desativação do último administrador ativo
+
+## 🖥️ Abrindo no Visual Studio Code pelo WSL
+
+Dentro da pasta do projeto, rode:
+
+```bash
+code .
+```
+
+O VS Code deve abrir conectado ao WSL.
+
+## 📌 Status do projeto
+
+Projeto em desenvolvimento.
+
+Funcionalidades já implementadas:
+
+* Login
+* Logout
+* Calendário
+* Atividades
+* Colaboradores
+* Gerenciamento de usuários
+* Controle de perfil
+* Controle de usuário ativo/inativo
+
+## 👨‍💻 Autor
+
+Desenvolvido por Paulo Paiva.
